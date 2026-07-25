@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #171817;
+  --foreground: #FCFAF5;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-charcoal: #171817;
+  --color-espresso: #35251D;
+  --color-cream: #F3EBDD;
+  --color-bronze: #B86236;
+  --color-olive: #69705A;
+  --color-cream-white: #FCFAF5;
+  
+  --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #171817;
+}
+::-webkit-scrollbar-thumb {
+  background: #35251D;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B86236;
+}
+
+/* Custom utility for safe bottom area padding on iOS devices */
+.pb-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }

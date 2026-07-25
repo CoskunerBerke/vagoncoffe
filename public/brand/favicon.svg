@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <!-- Rail/Track Line underneath -->
+  <line x1="10" y1="90" x2="90" y2="90" stroke="#69705A" stroke-width="3" stroke-linecap="round"/>
+  <line x1="20" y1="90" x2="20" y2="96" stroke="#69705A" stroke-width="2"/>
+  <line x1="50" y1="90" x2="50" y2="96" stroke="#69705A" stroke-width="2"/>
+  <line x1="80" y1="90" x2="80" y2="96" stroke="#69705A" stroke-width="2"/>
+
+  <!-- Outer wheel/circle -->
+  <circle cx="50" cy="50" r="36" fill="none" stroke="#171817" stroke-width="3" stroke-dasharray="1 3" />
+  <circle cx="50" cy="50" r="30" fill="none" stroke="#B86236" stroke-width="2"/>
+  
+  <!-- Mug shape inside -->
+  <path d="M38,42 L62,42 L60,68 C60,74 55,78 50,78 C45,78 40,74 40,68 Z" fill="#171817"/>
+  <!-- Mug handle -->
+  <path d="M62,48 C66,48 68,51 68,55 C68,59 66,62 62,62" fill="none" stroke="#171817" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Steam / Locomotive smoke -->
+  <path d="M44,34 C44,30 48,30 48,26 C48,22 44,22 44,18" fill="none" stroke="#B86236" stroke-width="2" stroke-linecap="round"/>
+  <path d="M52,34 C52,30 56,30 56,26 C56,22 52,22 52,18" fill="none" stroke="#B86236" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Center axle -->
+  <circle cx="50" cy="60" r="3" fill="#FCFAF5"/>
+</svg>
