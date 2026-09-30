@@ -1,121 +1,133 @@
-# Wagon Coffee & Food Web Sitesi
+# Wagon Coffee & Food — Website
 
-Wagon Coffee & Food için modern, özgün, iştah açıcı, mobil öncelikli ve profesyonel olarak tasarlanmış Next.js web sitesi.
+Mobile-first website for **Wagon Coffee & Food**, a train-themed café in Ankara, bringing together its two sub-brands: **Monkey Express Coffee** and **Mom'y Burgers & Sokak Lezzetleri**.
 
-Bu proje, Ankara'da faaliyet gösteren tren konseptli kafenin iki ana alt markası olan **Monkey Express Coffee** ve **Mom'y Burgers & Sokak Lezzetleri**'ni estetik bir biçimde bir araya getiren bir dijital istasyondur.
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-0055FF?logo=framer&logoColor=white)
 
----
+**Live:** https://vagoncoffe.vercel.app
 
-## 🛠️ Kullanılan Teknolojiler
+> Client project — designed and developed by Berke Coşkuner for Wagon Coffee & Food.
 
-*   **Çatı (Framework):** Next.js (App Router, TypeScript)
-*   **Arayüz & Stil:** Tailwind CSS v4
-*   **Animasyonlar:** Framer Motion
-*   **İkonlar:** Lucide Icons (Custom SVG Instagram desteğiyle)
-*   **Görseller:** Next/Image ve Yapay Zekâ ile üretilmiş yüksek kaliteli, lisanssız ürün ve mekan fotoğrafları.
+![Wagon Coffee & Food hero image](public/images/hero-wagon.jpg)
 
----
+## Overview
 
-## 🚀 Başlangıç & Kurulum
+A digital "station" for a train-concept café in Ankara. Visitors can browse the coffee and food menu, look through the gallery, read about the concept and find contact / directions links — all designed for phones first.
 
-Proje bağımlılıklarını kurmak ve yerel sunucuyu çalıştırmak için aşağıdaki adımları takip edin:
+All business data (contact details, social links, menu items) lives in two data files, so content can be updated without touching components. Fields that have not been verified with the business are left empty and are **hidden automatically** in the UI instead of showing placeholder data.
 
-### 1. Bağımlılıkları Kurun
+## Features
+
+- **Home page** — full-screen hero, concept section, customer favourites (featured menu items), venue atmosphere, Instagram section and a "Visit us" block with schema.org JSON-LD
+- **Menu** (`/menu`) — category filter (coffee, food, desserts, drinks) and search, both synced to the URL query string
+- **Product pages** (`/menu/[slug]`) — statically generated for every verified item, with per-product metadata
+- **Gallery** (`/galeri`) with filters and an image lightbox, **About** (`/hakkimizda`) and **Contact** (`/iletisim`)
+- **Legal pages** — KVKK, privacy policy and cookie policy
+- **Mobile bottom navigation** — quick access to menu search, directions, WhatsApp and Instagram
+- **SEO** — `sitemap.ts` (includes product routes), `robots.ts` and Open Graph metadata
+- Price labels are hidden when a price is not set; users are pointed to WhatsApp / Instagram DM instead
+
+## Tech stack
+
+| Area | Technology |
+| --- | --- |
+| Framework | Next.js 16 (App Router), React 19, TypeScript |
+| Styling | Tailwind CSS v4 |
+| Animation | Framer Motion |
+| Icons | Lucide React + custom Instagram SVG |
+| Images | `next/image` (product and venue images in the repo are AI-generated) |
+
+## Project structure
+
+```text
+src/
+├── app/
+│   ├── page.tsx              # Home page
+│   ├── menu/                 # Menu list (MenuClient) + [slug] product pages
+│   ├── galeri/  hakkimizda/  iletisim/
+│   ├── kvkk/  gizlilik-politikasi/  cerez-politikasi/
+│   └── layout.tsx  sitemap.ts  robots.ts
+├── components/               # Header, Footer, BottomStickyNav, icons
+└── data/
+    ├── site-config.ts        # Business info, social links, canonical URL
+    └── menu.ts               # Menu items and categories
+public/
+└── brand/  images/  menu/  gallery/
+```
+
+## Getting started
+
 ```bash
 npm install
+npm run dev        # http://localhost:3000
+npm run build
+npm run start
+npm run lint
 ```
 
-### 2. Geliştirme Sunucusunu Çalıştırın
-```bash
-npm run dev
-```
-Tarayıcınızda `http://localhost:3000` adresini açarak siteyi inceleyebilirsiniz.
+If the project path contains non-ASCII characters (e.g. `Masaüstü`), build with Webpack instead of Turbopack:
 
-### 3. Production Build Alın
-Yerel klasör yollarınızda Türkçe veya UTF-8 karakterler (Örn: `Masaüstü`) bulunuyorsa, Turbopack'in Unicode kısıtlamasından etkilenmemek için projeyi **Webpack** kullanarak derlemeniz önerilir:
 ```bash
 npx next build --webpack
 ```
-Bu komut, type check, linting ve optimizasyon işlemlerini Webpack motoruyla hatasız tamamlayacaktır.
+
+### Environment variables
+
+Copy `.env.example` to `.env.local`. Optional:
+
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+
+## Content management
+
+- **Business info** — edit `src/data/site-config.ts` (name, Instagram, phone, WhatsApp, address, maps link, working hours, order links). Empty fields are hidden in the UI.
+- **Menu** — edit `src/data/menu.ts`. Each item has `category`, `subcategory`, optional `price`, `image` and a `verified` flag; only verified items are shown and included in the sitemap.
+- **Images** — replace files with the same names in `public/brand/`, `public/images/`, `public/menu/` and `public/gallery/`.
 
 ---
 
-## ⚙️ Merkezi Ayarlar & Menü Yönetimi
+## Türkçe
 
-Tüm dinamik veri, iletişim bilgileri ve menü listesi iki ana dosyadan kontrol edilmektedir. Bilgileri değiştirmek için bileşen kodlarını düzenlemenize gerek yoktur.
+**Wagon Coffee & Food** için mobil öncelikli web sitesi. Ankara'daki tren konseptli kafenin iki alt markasını — **Monkey Express Coffee** ve **Mom'y Burgers & Sokak Lezzetleri** — tek bir sitede buluşturur.
 
-### 1. İşletme Bilgilerini Güncelleme
-Tüm işletme ayarları, sosyal bağlantılar ve adres bilgileri aşağıdaki dosyadan yönetilir:
-`src/data/site-config.ts`
+> Müşteri projesi — Wagon Coffee & Food için Berke Coşkuner tarafından tasarlanıp geliştirilmiştir.
 
-```typescript
-export const siteConfig = {
-  name: "Wagon Coffee & Food",
-  title: "WAGON COFFEE & FOOD",
-  instagram: "https://www.instagram.com/wagoncoffeefood/",
-  phone: "", // Telefon numarası doğrulandığında buraya ekleyin
-  whatsapp: "", // WhatsApp numarası doğrulandığında buraya ekleyin (Format: 90XXXXXXXXXX)
-  address: "", // Açık adres doğrulandığında buraya ekleyin
-  city: "Ankara",
-  mapsUrl: "", // Google Maps yönlendirme linkini buraya ekleyin
-  // ...
-};
+**Canlı:** https://vagoncoffe.vercel.app
+
+### Özellikler
+
+- Ana sayfa: hero, konsept, müşteri favorileri, mekan atmosferi, Instagram ve "Bizi ziyaret edin" bölümleri (schema.org JSON-LD ile)
+- Menü: kategori filtresi (kahve, yemek, tatlı, içecek) ve arama; URL ile senkron
+- Her doğrulanmış ürün için statik olarak üretilen ürün detay sayfaları
+- Galeri (filtre + lightbox), Hakkımızda, İletişim, KVKK, gizlilik ve çerez politikası sayfaları
+- Mobil alt navigasyon: menü araması, yol tarifi, WhatsApp, Instagram
+- `sitemap.ts`, `robots.ts` ve Open Graph ile SEO; fiyatı girilmemiş ürünlerde fiyat etiketi gizlenir
+
+### Teknolojiler
+
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, Framer Motion, Lucide ikonları. Repodaki ürün ve mekan görselleri yapay zekâ ile üretilmiştir.
+
+### Kurulum
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+npm run build
 ```
-*Not: site-config.ts içinde boş bırakılan alanlar (örn: telefon, whatsapp, maps linki vb.) arayüzde otomatik olarak gizlenir ve hatalı yönlendirme yapılmaz.*
 
-### 2. Menü Ürünlerini & Fiyatları Düzenleme
-Menü kategorileri, ürün adları ve görselleri aşağıdaki dosyada tutulmaktadır:
-`src/data/menu.ts`
+Proje yolunda Türkçe karakter (ör. `Masaüstü`) varsa Turbopack yerine Webpack ile derleyin: `npx next build --webpack`.
 
-Yeni bir ürün eklemek veya mevcut ürünü düzenlemek için veri modelini güncelleyin:
-```typescript
-{
-  id: "momy-burger",
-  slug: "momy-burger",
-  name: "Mom'y Burger",
-  category: "food", // 'coffee', 'food', 'desserts', 'drinks'
-  subcategory: "Burgers",
-  price: undefined, // Fiyat doğrulandığında sayı olarak girin. Bilinmiyorsa undefined bırakın.
-  image: "/menu/food/momy-burger.jpg",
-  verified: true, // Production arayüzünde gösterilmesi için 'true' yapın.
-  // ...
-}
-```
-*Fiyat bilgisi `undefined` bırakıldığında arayüzde fiyat etiketi gizlenir. Ürün detaylarında kullanıcılar WhatsApp veya Instagram DM kanallarına yönlendirilir.*
+Ortam değişkeni (opsiyonel): `NEXT_PUBLIC_GA_MEASUREMENT_ID` — `.env.example` dosyasını `.env.local` olarak kopyalayın.
+
+### İçerik yönetimi
+
+- İşletme bilgileri: `src/data/site-config.ts` — boş bırakılan alanlar (telefon, WhatsApp, adres, harita linki vb.) arayüzde otomatik gizlenir.
+- Menü: `src/data/menu.ts` — yalnızca `verified: true` olan ürünler gösterilir; `price` boşsa fiyat etiketi gizlenir.
+- Görseller: `public/brand/`, `public/images/`, `public/menu/`, `public/gallery/` klasörlerindeki dosyaları aynı adla değiştirin.
 
 ---
 
-## 📸 Görselleri Değiştirme
-
-Projede kullanılan görseller aşağıdaki klasör yapısında yer almaktadır. Kendi görsellerinizi aynı isim ve uzantılarla bu klasörlere kopyalayarak değiştirebilirsiniz:
-
-*   **Logolar:** `public/brand/`
-    *   `logo-light.svg` (Koyu arka planlar için krem/altın logo)
-    *   `logo-dark.svg` (Açık arka planlar için koyu logo)
-    *   `favicon.svg` (Tarayıcı sekme ikonu)
-*   **Genel Görseller:** `public/images/`
-    *   `hero-wagon.jpg` (Ana sayfa arka plan görseli)
-    *   `cafe-interior.jpg` (Kafe içi detay fotoğrafı)
-    *   `cafe-exterior.jpg` (Dış cephe/storefront fotoğrafı)
-*   **Menü Görselleri:** `public/menu/`
-    *   `coffee/monkey-express-coffee.jpg`
-    *   `food/momy-burger.jpg`
-    *   `food/patates-kizartmasi.jpg`
-*   **Galeri Görselleri:** `public/gallery/`
-    *   `gallery-1.jpg` ile `gallery-6.jpg` arası görseller.
-
----
-
-## 🔒 Doğrulanamayan Alanlar Raporu
-
-Instagram profilinin kısıtlı erişimi nedeniyle uydurma veri üretilmesini engellemek amacıyla aşağıdaki alanlar boş bırakılmış ve arayüzde gizlenmiştir:
-
-1.  **Telefon Numarası:** Doğrulanmadı.
-2.  **WhatsApp İletişim Hattı:** Doğrulanmadı.
-3.  **Açık Adres & İlçe:** Sadece "Ankara" konumu doğrulandı.
-4.  **Google Maps İşletme Kaydı:** Doğrulanmadı.
-5.  **Çalışma Saatleri:** Doğrulanmadı.
-6.  **Yemek Sipariş / Rezervasyon Platformları:** Doğrulanmadı.
-7.  **Menü Ürün Fiyatları & Alerjen Listeleri:** Doğrulanmadı.
-
-*Bu bilgiler doğrulandığında ilgili alanlar `site-config.ts` ve `menu.ts` dosyalarına girildiği an arayüzde otomatik olarak aktifleşecektir.*
+Built by [Berke Coşkuner](https://github.com/CoskunerBerke)
