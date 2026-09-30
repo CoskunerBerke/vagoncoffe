@@ -23,13 +23,13 @@ All business data (contact details, social links, menu items) lives in two data 
 ## Features
 
 - **Home page** — full-screen hero, concept section, customer favourites (featured menu items), venue atmosphere, Instagram section and a "Visit us" block with schema.org JSON-LD
-- **Menu** (`/menu`) — category filter (coffee, food, desserts, drinks) and search, both synced to the URL query string
+- **Menu** (`/menu`) — category filter (All / Monkey Express coffee / Mom'y Burgers food) and search, both synced to the URL query string
 - **Product pages** (`/menu/[slug]`) — statically generated for every verified item, with per-product metadata
 - **Gallery** (`/galeri`) with filters and an image lightbox, **About** (`/hakkimizda`) and **Contact** (`/iletisim`)
 - **Legal pages** — KVKK, privacy policy and cookie policy
-- **Mobile bottom navigation** — quick access to menu search, directions, WhatsApp and Instagram
+- **Mobile bottom navigation** — menu, menu search and Instagram; Directions and WhatsApp buttons appear automatically once those links are set
 - **SEO** — `sitemap.ts` (includes product routes), `robots.ts` and Open Graph metadata
-- Price labels are hidden when a price is not set; users are pointed to WhatsApp / Instagram DM instead
+- Prices are not displayed; product pages point visitors to Instagram (and WhatsApp, once a number is set) for current prices and allergen details
 
 ## Tech stack
 
@@ -77,14 +77,12 @@ npx next build --webpack
 
 ### Environment variables
 
-Copy `.env.example` to `.env.local`. Optional:
-
-- `NEXT_PUBLIC_GA_MEASUREMENT_ID`
+None are required. `.env.example` lists an optional `NEXT_PUBLIC_GA_MEASUREMENT_ID` (copy it to `.env.local`); the current code does not read it yet.
 
 ## Content management
 
 - **Business info** — edit `src/data/site-config.ts` (name, Instagram, phone, WhatsApp, address, maps link, working hours, order links). Empty fields are hidden in the UI.
-- **Menu** — edit `src/data/menu.ts`. Each item has `category`, `subcategory`, optional `price`, `image` and a `verified` flag; only verified items are shown and included in the sitemap.
+- **Menu** — edit `src/data/menu.ts`. Each item has `category` (`coffee`, `food`, `desserts`, `drinks`), `subcategory`, optional `price`, `image` and a `verified` flag; only verified items are shown and included in the sitemap.
 - **Images** — replace files with the same names in `public/brand/`, `public/images/`, `public/menu/` and `public/gallery/`.
 
 ---
@@ -100,11 +98,12 @@ Copy `.env.example` to `.env.local`. Optional:
 ### Özellikler
 
 - Ana sayfa: hero, konsept, müşteri favorileri, mekan atmosferi, Instagram ve "Bizi ziyaret edin" bölümleri (schema.org JSON-LD ile)
-- Menü: kategori filtresi (kahve, yemek, tatlı, içecek) ve arama; URL ile senkron
+- Menü: kategori filtresi (Tümü / Monkey Express kahveleri / Mom'y Burgers lezzetleri) ve arama; ikisi de URL ile senkron
 - Her doğrulanmış ürün için statik olarak üretilen ürün detay sayfaları
 - Galeri (filtre + lightbox), Hakkımızda, İletişim, KVKK, gizlilik ve çerez politikası sayfaları
-- Mobil alt navigasyon: menü araması, yol tarifi, WhatsApp, Instagram
-- `sitemap.ts`, `robots.ts` ve Open Graph ile SEO; fiyatı girilmemiş ürünlerde fiyat etiketi gizlenir
+- Mobil alt navigasyon: menü, menü araması ve Instagram; yol tarifi ve WhatsApp butonları bu bağlantılar girildiğinde otomatik görünür
+- `sitemap.ts`, `robots.ts` ve Open Graph ile SEO
+- Fiyatlar sitede gösterilmez; ürün sayfaları güncel fiyat ve alerjen bilgisi için ziyaretçiyi Instagram'a (numara girildiğinde WhatsApp'a) yönlendirir
 
 ### Teknolojiler
 
@@ -120,12 +119,12 @@ npm run build
 
 Proje yolunda Türkçe karakter (ör. `Masaüstü`) varsa Turbopack yerine Webpack ile derleyin: `npx next build --webpack`.
 
-Ortam değişkeni (opsiyonel): `NEXT_PUBLIC_GA_MEASUREMENT_ID` — `.env.example` dosyasını `.env.local` olarak kopyalayın.
+Zorunlu ortam değişkeni yoktur. `.env.example` içinde opsiyonel `NEXT_PUBLIC_GA_MEASUREMENT_ID` tanımlıdır (dosyayı `.env.local` olarak kopyalayabilirsiniz); mevcut kod bu değişkeni henüz kullanmıyor.
 
 ### İçerik yönetimi
 
 - İşletme bilgileri: `src/data/site-config.ts` — boş bırakılan alanlar (telefon, WhatsApp, adres, harita linki vb.) arayüzde otomatik gizlenir.
-- Menü: `src/data/menu.ts` — yalnızca `verified: true` olan ürünler gösterilir; `price` boşsa fiyat etiketi gizlenir.
+- Menü: `src/data/menu.ts` — yalnızca `verified: true` olan ürünler gösterilir ve site haritasına eklenir.
 - Görseller: `public/brand/`, `public/images/`, `public/menu/`, `public/gallery/` klasörlerindeki dosyaları aynı adla değiştirin.
 
 ---
